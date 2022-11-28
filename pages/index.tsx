@@ -8,7 +8,6 @@ export default function Home() {
 			<Head>
 				<title>Reddit Demo</title>
 			</Head>
-			<Header />
 		</div>
 	);
 }
