@@ -46,7 +46,7 @@ export const Header = (props: Props) => {
 			</div>
 
 			{/* Right side (Logos) */}
-			<div className="flex items-center space-x-2 px-3  p-1">
+			<div className="md:flex items-center space-x-2 px-3  p-1 hidden">
 				<HiOutlineSparkles className="nav-icons" />
 				<AiOutlineGlobal className="nav-icons" />
 				<AiOutlineVideoCamera className="nav-icons" />
@@ -79,7 +79,9 @@ export const Header = (props: Props) => {
 						alt="/reddit "
 						className="h-6 w-6 "
 					/>
-					<p className="group-hover:text-red-500">Sign In</p>
+					<p className="group-hover:text-red-500 hidden lg:inline">
+						Sign In
+					</p>
 				</div>
 			)}
 		</section>
