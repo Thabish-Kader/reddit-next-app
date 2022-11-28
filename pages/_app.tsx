@@ -9,8 +9,10 @@ export default function App({
 }: AppProps) {
 	return (
 		<SessionProvider session={session}>
-			<Header />
-			<Component {...pageProps} />
+			<div className="bg-slate-300 h-screen">
+				<Header />
+				<Component {...pageProps} />
+			</div>
 		</SessionProvider>
 	);
 }

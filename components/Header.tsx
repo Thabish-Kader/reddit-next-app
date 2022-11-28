@@ -22,7 +22,7 @@ export const Header = (props: Props) => {
 	const { data: session } = useSession();
 
 	return (
-		<section className="flex items-center w-full">
+		<section className="flex items-center w-full bg-white p-1">
 			{/* Left side */}
 			<div className="flex items-center p-2 px-3 lg:min-w-[300px]">
 				<Image
