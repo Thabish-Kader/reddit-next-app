@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.nav-icons {
+		@apply text-gray-700 cursor-pointer;
+	}
+}
