@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import reddit from "../public/assets/reddit.png";
+import redditOutline from "../public/assets/reddit-outline.png";
 import {
 	AiFillHome,
 	AiOutlineDown,
@@ -18,6 +19,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 type Props = {};
 
 export const Header = (props: Props) => {
+	const { data: session } = useSession();
+
 	return (
 		<section className="flex items-center w-full">
 			{/* Left side */}
@@ -43,15 +46,42 @@ export const Header = (props: Props) => {
 			</div>
 
 			{/* Right side (Logos) */}
-			<div className="flex items-center space-x-2 ">
-				<HiOutlineSparkles size={20} className="nav-icons" />
-				<AiOutlineGlobal size={20} className="nav-icons" />
-				<AiOutlineVideoCamera size={20} className="nav-icons" />
+			<div className="flex items-center space-x-2 px-3  p-1">
+				<HiOutlineSparkles className="nav-icons" />
+				<AiOutlineGlobal className="nav-icons" />
+				<AiOutlineVideoCamera className="nav-icons" />
 				<hr className=" border-gray-200 border h-10 " />
-				<BsChatDots size={20} className="nav-icons" />
-				<AiOutlineBell size={20} className="nav-icons" />
-				<HiSpeakerphone size={20} className="nav-icons" />
+				<BsChatDots className="nav-icons" />
+				<AiOutlineBell className="nav-icons" />
+				<HiSpeakerphone className="nav-icons" />
 			</div>
+
+			{/* sign in / sign out */}
+			{session ? (
+				<div
+					onClick={() => signOut()}
+					className="flex items-center space-x-2 group rounded-sm hover:bg-gray-300 p-2 cursor-pointer "
+				>
+					<Image
+						src={redditOutline}
+						alt="/reddit "
+						className="h-6 w-6 "
+					/>
+					<p className="group-hover:text-red-500">Sign Out</p>
+				</div>
+			) : (
+				<div
+					onClick={() => signIn()}
+					className="flex items-center space-x-2 group rounded-sm hover:bg-gray-300 p-2 cursor-pointer "
+				>
+					<Image
+						src={redditOutline}
+						alt="/reddit "
+						className="h-6 w-6 "
+					/>
+					<p className="group-hover:text-red-500">Sign In</p>
+				</div>
+			)}
 		</section>
 	);
 };

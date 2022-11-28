@@ -4,6 +4,6 @@
 
 @layer components {
 	.nav-icons {
-		@apply text-gray-700 cursor-pointer;
+		@apply text-gray-700 cursor-pointer hover:bg-gray-300  h-6 w-6;
 	}
 }
