@@ -26,7 +26,7 @@ export const PostInput = () => {
 
 	// todo add functionality so that only authenticated users can post
 	return (
-		<section className="bg-white">
+		<section className="bg-white rounded-md">
 			<form
 				className="flex flex-col space-y-3"
 				onSubmit={handleSubmit(onSubmit)}
@@ -70,7 +70,7 @@ export const PostInput = () => {
 						<div className="flex items-center">
 							<p className="min-w-[100px] px-3">Body</p>
 							<input
-								{...register("postBody")}
+								{...register("postBody", { required: true })}
 								type="text"
 								placeholder="Enter Post Body"
 								className="bg-blue-50 flex-grow p-2 rounded-md outline-none mr-10"
@@ -105,14 +105,22 @@ export const PostInput = () => {
 							</>
 						)}
 
-						<button className="bg-red-400 p-2 rounded-md font-bold ml-24 mr-10">
+						<button className="bg-red-400 p-2 rounded-md font-bold ml-24 mr-10 text-white">
 							Post
 						</button>
-						{errors.subReddit?.type === "required" && (
-							<p className="text-2xl text-center  tracking-widest text-red-500 font-bold">
-								Enter SubReddit !!!!
-							</p>
-						)}
+						<div>
+							{errors.subReddit?.type === "required" && (
+								<p className="text-2xl text-center   text-red-500 font-bold">
+									Enter SubReddit !!!!
+								</p>
+							)}
+
+							{errors.postBody?.type === "required" && (
+								<p className="text-2xl text-center   text-red-500 font-bold">
+									Enter Body !!!!
+								</p>
+							)}
+						</div>
 					</div>
 				)}
 			</form>
