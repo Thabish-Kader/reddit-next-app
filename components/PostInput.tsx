@@ -44,6 +44,7 @@ export const PostInput = () => {
 
 					<input
 						{...register("postTitle", { required: true })}
+						disabled={!session}
 						type="text"
 						className="mx-3 flex-1 p-2 outline-none rounded-md bg-gray-100"
 						placeholder="Enter Post Title"
