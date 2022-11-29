@@ -206,6 +206,22 @@ type Mutation {
 			dml: INSERT
 			configuration: "postgresql_config"
 		)
+
+	createPost(
+		body: String
+		subreddit_id: ID
+		title: String
+		username: String
+		image: String
+	): Post
+		@dbquery(
+			type: "postgresql"
+			schema: "public"
+			table: "Post"
+			dml: INSERT
+			configuration: "postgresql_config"
+		)
+
 	" Mutations for type 'Subreddit' "
 	deleteSubreddit(topic: String!, created_at: DateTime!, id: ID!): Subreddit
 		@dbquery(
