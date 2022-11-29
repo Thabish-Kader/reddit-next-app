@@ -23,6 +23,8 @@ export const PostInput = () => {
 	} = useForm<Inputs>();
 	const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 	const { data: session } = useSession();
+
+	// todo add functionality so that only authenticated users can post
 	return (
 		<section className="bg-white">
 			<form
