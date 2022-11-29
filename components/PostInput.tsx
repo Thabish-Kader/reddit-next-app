@@ -4,6 +4,10 @@ import { AiOutlineLink } from "react-icons/ai";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_SUBREDDIT } from "../graphQl/queries";
+import { ADD_POST, CREAT_SUBREDDIT } from "../graphQl/mutations";
+import { client } from "../apollo-client";
 
 type Inputs = {
 	postTitle: string;
@@ -14,15 +18,80 @@ type Inputs = {
 
 export const PostInput = () => {
 	const [imageInput, setImageInput] = useState<boolean>(false);
-
 	const {
 		register,
 		handleSubmit,
 		watch,
+		setValue,
 		formState: { errors },
 	} = useForm<Inputs>();
-	const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 	const { data: session } = useSession();
+
+	// Apollo
+	const [addSubreddit] = useMutation(CREAT_SUBREDDIT);
+	const [newPost] = useMutation(ADD_POST);
+
+	const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+		try {
+			const {
+				data: { getSubreddiByTopic },
+			} = await client.query({
+				query: GET_SUBREDDIT,
+				variables: {
+					topic: formData.subReddit,
+				},
+			});
+			// check wether subreddit exists
+			console.log(getSubreddiByTopic.length === 0);
+			console.log(getSubreddiByTopic[0].id);
+			if (getSubreddiByTopic.length === 0) {
+				// if does not exits create subreddit
+				console.log("Create new Subreddit -> ", formData.subReddit);
+				const {
+					data: { insertSubreddit },
+				} = await addSubreddit({
+					variables: {
+						topic: formData.subReddit,
+					},
+				});
+				console.log("Create new post for", formData.subReddit);
+				// create new post for the new subreddit
+				await newPost({
+					variables: {
+						body: formData.postBody,
+						image: formData.image || "",
+						subreddit_id: insertSubreddit.id,
+						title: formData.postTitle,
+						username: session?.user?.name,
+					},
+				});
+				console.log(`Post create for -> ${formData.subReddit}`);
+			} else {
+				// if exists take the subreddit  id and post
+				console.log(
+					`Subreddit exists -> add new Post ${formData.postTitle}`
+				);
+				await newPost({
+					variables: {
+						body: formData.postBody,
+						image: formData.image || "",
+						subreddit_id: getSubreddiByTopic[0].id,
+						title: formData.postTitle,
+						username: session?.user?.name,
+					},
+				});
+				console.log(`new post created for existing subreddit`);
+			}
+
+			// reset input fields
+			setValue("image", "");
+			setValue("postBody", "");
+			setValue("postTitle", "");
+			setValue("subReddit", "");
+		} catch (error) {
+			console.log(`Error : ${error}`);
+		}
+	};
 
 	// todo add functionality so that only authenticated users can post
 	return (

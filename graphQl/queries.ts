@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 
-const GET_SUBREDDIT = gql`
-	query getSubredditQuery($topic: String = "next js") {
+export const GET_SUBREDDIT = gql`
+	query getSubredditQuery($topic: String!) {
 		getSubreddiByTopic(topic: $topic) {
 			created_at
 			id
