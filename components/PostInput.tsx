@@ -8,6 +8,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_SUBREDDIT } from "../graphQl/queries";
 import { ADD_POST, CREAT_SUBREDDIT } from "../graphQl/mutations";
 import { client } from "../apollo-client";
+import toast from "react-hot-toast";
 
 type Inputs = {
 	postTitle: string;
@@ -32,6 +33,8 @@ export const PostInput = () => {
 	const [newPost] = useMutation(ADD_POST);
 
 	const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+		const notification = toast.loading("Createing a Post....");
+
 		try {
 			const {
 				data: { getSubreddiByTopic },
@@ -42,8 +45,6 @@ export const PostInput = () => {
 				},
 			});
 			// check wether subreddit exists
-			console.log(getSubreddiByTopic.length === 0);
-			console.log(getSubreddiByTopic[0].id);
 			if (getSubreddiByTopic.length === 0) {
 				// if does not exits create subreddit
 				console.log("Create new Subreddit -> ", formData.subReddit);
@@ -55,6 +56,7 @@ export const PostInput = () => {
 					},
 				});
 				console.log("Create new post for", formData.subReddit);
+				console.log(insertSubreddit);
 				// create new post for the new subreddit
 				await newPost({
 					variables: {
@@ -88,7 +90,11 @@ export const PostInput = () => {
 			setValue("postBody", "");
 			setValue("postTitle", "");
 			setValue("subReddit", "");
+			toast.success("Post Created", {
+				id: notification,
+			});
 		} catch (error) {
+			toast.error("Something went wrong");
 			console.log(`Error : ${error}`);
 		}
 	};

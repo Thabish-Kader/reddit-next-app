@@ -67,7 +67,10 @@ export const Header = (props: Props) => {
 						alt="/reddit "
 						className="h-6 w-6 "
 					/>
-					<p className="group-hover:text-red-500">Sign Out</p>
+					<div className="flex flex-col items-center">
+						<p>{session.user?.name}</p>
+						<p className="group-hover:text-red-500">Sign Out</p>
+					</div>
 				</div>
 			) : (
 				<div
