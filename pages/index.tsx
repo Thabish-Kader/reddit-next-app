@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import { Feed } from "../components/Feed";
 import { Header } from "../components/Header";
 import { PostInput } from "../components/PostInput";
 
@@ -11,6 +12,9 @@ export default function Home() {
 			</Head>
 
 			<PostInput />
+
+			{/* Feed Component */}
+			<Feed />
 		</div>
 	);
 }
