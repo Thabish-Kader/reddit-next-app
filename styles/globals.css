@@ -9,4 +9,8 @@
 	.vote-icons {
 		@apply hover:text-orange-500 hover:bg-gray-300;
 	}
+
+	.post-icons {
+		@apply flex space-x-1 text-gray-500 hover:bg-gray-100 hover:text-orange-500 cursor-pointer;
+	}
 }

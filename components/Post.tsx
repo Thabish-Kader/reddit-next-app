@@ -19,9 +19,9 @@ export const Post = ({ post }: Props) => {
 				<FiArrowDown className="vote-icons" />
 			</div>
 
-			<div>
+			<div className="flex flex-col p-2 space-y-2">
 				{/* user info */}
-				<div className="flex items-center space-x-1">
+				<div className="flex items-center space-x-1 m-2">
 					<UserIcon name={post?.username} />
 					<p className="font-bold tracking-tight text-sm">
 						r/{post?.subreddit[0].topic}
@@ -38,7 +38,7 @@ export const Post = ({ post }: Props) => {
 					/>
 				</div>
 				{/* post info */}
-				<div>
+				<div className="flex flex-col m-2">
 					<p>{post?.title}</p>
 					<p>{post.body}</p>
 				</div>
@@ -53,28 +53,28 @@ export const Post = ({ post }: Props) => {
 					/>
 				</div>
 				{/* footer */}
-				<div className="flex items-center">
-					<div className="postButtons">
+				<div className="flex space-x-4 items-center m-10">
+					<div className="post-icons">
 						<BsChatDots size={20} />
 						<p>{post.comment.length} Comments</p>
 					</div>
 
-					<div className="postButtons">
+					<div className="post-icons">
 						<AiOutlineGift size={20} />
 						<p className="hidden sm:inline"> Award</p>
 					</div>
 
-					<div className="postButtons">
+					<div className="post-icons">
 						<AiOutlineShareAlt size={20} />
 						<p className="hidden sm:inline"> Share</p>
 					</div>
 
-					<div className="postButtons">
+					<div className="post-icons">
 						<BsSave size={20} />
 						<p className="hidden sm:inline"> Save</p>
 					</div>
 
-					<div className="postButtons">
+					<div className="post-icons">
 						<BsThreeDots size={20} />
 					</div>
 				</div>
