@@ -13,7 +13,7 @@ export const Post = ({ post }: Props) => {
 	return (
 		<div className="flex bg-white">
 			{/* voteing side */}
-			<div className="flex flex-col items-center p-5 space-y-2 bg-gray-100">
+			<div className="flex flex-col items-center p-5 space-y-2  bg-gray-100">
 				<FiArrowUp className="vote-icons" />
 				<p className="font-bold">0</p>
 				<FiArrowDown className="vote-icons" />

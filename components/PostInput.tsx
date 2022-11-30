@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_SUBREDDIT } from "../graphQl/queries";
+import { ALL_POSTS_BY_ORDER, GET_SUBREDDIT } from "../graphQl/queries";
 import { ADD_POST, CREAT_SUBREDDIT } from "../graphQl/mutations";
 import { client } from "../apollo-client";
 import toast from "react-hot-toast";
@@ -31,7 +31,9 @@ export const PostInput = () => {
 
 	// Apollo
 	const [addSubreddit] = useMutation(CREAT_SUBREDDIT);
-	const [newPost] = useMutation(ADD_POST);
+	const [newPost] = useMutation(ADD_POST, {
+		refetchQueries: [{ query: ALL_POSTS_BY_ORDER }, "getPostListByOrder"],
+	});
 
 	const onSubmit: SubmitHandler<Inputs> = async (formData) => {
 		const notification = toast.loading("Createing a Post....");

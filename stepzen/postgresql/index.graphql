@@ -109,6 +109,17 @@ type Query {
 			table: "Post"
 			configuration: "postgresql_config"
 		)
+
+	getPostListByOrder: [Post]
+		@dbquery(
+			type: "postgresql"
+			query: """
+			select * from "Post"
+			order by "created_at" desc
+			"""
+			configuration: "postgresql_config"
+		)
+
 	getPostPaginatedList(first: Int, after: Int): [Post]
 		@dbquery(
 			type: "postgresql"
