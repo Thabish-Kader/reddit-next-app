@@ -20,6 +20,21 @@ type Post {
 	subreddit_id: ID
 	title: String
 	username: String
+	subreddit: [Subreddit]
+		@materializer(
+			query: "getSubredditListById"
+			arguments: [{ name: "post_id", field: "subreddit_id" }]
+		)
+	comment: [Comment]
+		@materializer(
+			query: "getCommentListById"
+			arguments: [{ name: "post_id", field: "id" }]
+		)
+	vote: [Vote]
+		@materializer(
+			query: "getVoteListById"
+			arguments: [{ name: "post_id", field: "id" }]
+		)
 }
 
 """
@@ -53,6 +68,14 @@ type Query {
 			type: "postgresql"
 			schema: "public"
 			table: "comment"
+			configuration: "postgresql_config"
+		)
+	getCommentListById(post_id: ID!): [Comment]
+		@dbquery(
+			type: "postgresql"
+			query: """
+			SELECT  * FROM "comment" where "post_id" = $1
+			"""
 			configuration: "postgresql_config"
 		)
 	getCommentPaginatedList(first: Int, after: Int): [Comment]
@@ -104,6 +127,15 @@ type Query {
 			configuration: "postgresql_config"
 		)
 
+	getSubredditListById(post_id: ID!): [Subreddit]
+		@dbquery(
+			type: "postgresql"
+			query: """
+			SELECT  * FROM "subreddit" where "id" = $1
+			"""
+			configuration: "postgresql_config"
+		)
+
 	getSubreddiByTopic(topic: String!): [Subreddit]
 		@dbquery(
 			type: "postgresql"
@@ -128,6 +160,14 @@ type Query {
 			type: "postgresql"
 			schema: "public"
 			table: "vote"
+			configuration: "postgresql_config"
+		)
+	getVoteListById(post_id: ID!): [Vote]
+		@dbquery(
+			type: "postgresql"
+			query: """
+			SELECT * FROM "vote" where "post_id" = $1
+			"""
 			configuration: "postgresql_config"
 		)
 	getVotePaginatedList(first: Int, after: Int): [Vote]
