@@ -102,7 +102,7 @@ export const PostInput = () => {
 
 	// todo add functionality so that only authenticated users can post
 	return (
-		<section className="bg-white rounded-md">
+		<section className="sticky top-12 z-20 bg-white rounded-md mb-4 shadow-sm border border-gray-200">
 			<form
 				className="flex flex-col space-y-3"
 				onSubmit={handleSubmit(onSubmit)}

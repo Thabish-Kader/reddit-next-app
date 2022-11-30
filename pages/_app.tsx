@@ -13,7 +13,7 @@ export default function App({
 		<ApolloProvider client={client}>
 			<SessionProvider session={session}>
 				<Toaster />
-				<div className="bg-slate-300 h-screen">
+				<div className="bg-slate-300 h-screen overflow-y-scroll">
 					<Header />
 					<Component {...pageProps} />
 				</div>
