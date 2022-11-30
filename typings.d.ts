@@ -7,11 +7,11 @@ type Post = {
 	title: string;
 	username: string;
 	subreddit: Subreddit[];
-	comment: Comment[];
+	comment: Comments[];
 	vote: Vote[];
 };
 
-type Comment = {
+type Comments = {
 	created_at: string;
 	id: number;
 	post_id: number;

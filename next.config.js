@@ -7,5 +7,11 @@ const nextConfig = {
 module.exports = {
 	images: {
 		domains: ["avatars.dicebear.com"],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "**",
+			},
+		],
 	},
 };

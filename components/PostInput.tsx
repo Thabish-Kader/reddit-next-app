@@ -9,6 +9,7 @@ import { GET_SUBREDDIT } from "../graphQl/queries";
 import { ADD_POST, CREAT_SUBREDDIT } from "../graphQl/mutations";
 import { client } from "../apollo-client";
 import toast from "react-hot-toast";
+import { UserIcon } from "./UserIcon";
 
 type Inputs = {
 	postTitle: string;
@@ -106,16 +107,17 @@ export const PostInput = () => {
 				className="flex flex-col space-y-3"
 				onSubmit={handleSubmit(onSubmit)}
 			>
-				{/* Avatar and Post title Input */}
+				{/* User Icon and Post title Input */}
 				<div className="flex items-center">
-					<div className="relative h-14 w-14 lg:h-16 lg:w-16 ">
+					{/* <div className="relative h-14 w-14 lg:h-16 lg:w-16 ">
 						<Image
 							src={`https://avatars.dicebear.com/api/open-peeps/${session?.user?.name}.svg`}
 							alt="avatar"
 							fill
 							className="object-cover rounded-full"
 						/>
-					</div>
+					</div> */}
+					<UserIcon name={session?.user?.name as string} />
 
 					<input
 						{...register("postTitle", { required: true })}

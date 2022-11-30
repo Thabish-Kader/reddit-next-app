@@ -1,9 +1,84 @@
 import React from "react";
-
+import { FiArrowUp, FiArrowDown } from "react-icons/fi";
+import TimeAgo from "react-timeago";
+import { BsChatDots, BsThreeDots, BsSave } from "react-icons/bs";
+import { AiOutlineGift, AiOutlineShareAlt } from "react-icons/ai";
+import { UserIcon } from "./UserIcon";
+import Image from "next/image";
 type Props = {
 	post: Post;
 };
 
 export const Post = ({ post }: Props) => {
-	return <div></div>;
+	return (
+		<div className="flex bg-white">
+			{/* voteing side */}
+			<div className="flex flex-col items-center p-5 space-y-2 bg-gray-100">
+				<FiArrowUp className="vote-icons" />
+				<p className="font-bold">0</p>
+				<FiArrowDown className="vote-icons" />
+			</div>
+
+			<div>
+				{/* user info */}
+				<div className="flex items-center space-x-1">
+					<UserIcon name={post?.username} />
+					<p className="font-bold tracking-tight text-sm">
+						r/{post?.subreddit[0].topic}
+					</p>
+					<p className="text-xs text-gray-500">
+						Posted by{" "}
+						<span className="hover:text-blue-500 cursor-pointer">
+							{post?.username}
+						</span>
+					</p>
+					<TimeAgo
+						className="text-xs text-gray-500"
+						date={post?.created_at}
+					/>
+				</div>
+				{/* post info */}
+				<div>
+					<p>{post?.title}</p>
+					<p>{post.body}</p>
+				</div>
+
+				{/* image */}
+				<div className="relative min-w-[900px] h-[500px]">
+					<Image
+						src={post?.image}
+						alt=""
+						fill
+						className="object-contain"
+					/>
+				</div>
+				{/* footer */}
+				<div className="flex items-center">
+					<div className="postButtons">
+						<BsChatDots size={20} />
+						<p>{post.comment.length} Comments</p>
+					</div>
+
+					<div className="postButtons">
+						<AiOutlineGift size={20} />
+						<p className="hidden sm:inline"> Award</p>
+					</div>
+
+					<div className="postButtons">
+						<AiOutlineShareAlt size={20} />
+						<p className="hidden sm:inline"> Share</p>
+					</div>
+
+					<div className="postButtons">
+						<BsSave size={20} />
+						<p className="hidden sm:inline"> Save</p>
+					</div>
+
+					<div className="postButtons">
+						<BsThreeDots size={20} />
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
