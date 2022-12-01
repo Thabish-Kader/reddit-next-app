@@ -95,6 +95,18 @@ type Query {
 			table: "Post"
 			configuration: "postgresql_config"
 		)
+
+	# query for individual post
+	getPostById(id: ID!): Post
+		@dbquery(
+			type: "postgresql"
+			query: """
+			SELECT * FROM "Post"
+			where id = $1
+			"""
+			configuration: "postgresql_config"
+		)
+
 	# query for [subreddit].tsx
 	getPostBySubredditTopic(topic: String!): [Post]
 		@dbquery(
@@ -225,12 +237,7 @@ type Mutation {
 			dml: DELETE
 			configuration: "postgresql_config"
 		)
-	insertComment(
-		username: String
-		post_id: ID
-		text: String
-		created_at: DateTime
-	): Comment
+	insertComment(username: String, post_id: ID, text: String): Comment
 		@dbquery(
 			type: "postgresql"
 			schema: "public"

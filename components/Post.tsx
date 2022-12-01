@@ -4,17 +4,32 @@ import TimeAgo from "react-timeago";
 import { BsChatDots, BsThreeDots, BsSave } from "react-icons/bs";
 import { AiOutlineGift, AiOutlineShareAlt } from "react-icons/ai";
 import { UserIcon } from "./UserIcon";
+import { Pinwheel } from "@uiball/loaders";
 import Image from "next/image";
 
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 type Props = {
 	post: Post;
 };
 
 export const Post = ({ post }: Props) => {
+	const router = useRouter();
+
+	if (!post)
+		return (
+			<div className="flex flex-col items-center justify-center h-screen">
+				<Pinwheel size={35} lineWeight={3.5} speed={1} color="black" />
+				<p>One moment.....</p>
+			</div>
+		);
+
 	return (
-		<div className="flex bg-white">
+		<div
+			onClick={() => router.push(`/post/${post.id}`)}
+			className="flex bg-white hover:border cursor-pointer border-black"
+		>
 			{/* voteing side */}
 			<div className="flex flex-col items-center p-5 space-y-2  bg-gray-100">
 				<FiArrowUp className="vote-icons" />
@@ -38,13 +53,13 @@ export const Post = ({ post }: Props) => {
 					</p>
 					<TimeAgo
 						className="text-xs text-gray-500"
-						date={post.created_at}
+						date={post?.created_at}
 					/>
 				</div>
 				{/* post info */}
 				<div className="flex flex-col m-2">
 					<p className="text-xl font-bold">{post?.title}</p>
-					<p>{post.body}</p>
+					<p>{post?.body}</p>
 				</div>
 
 				{/* image */}
@@ -62,7 +77,7 @@ export const Post = ({ post }: Props) => {
 				<div className="flex space-x-4 items-center m-10">
 					<div className="post-icons">
 						<BsChatDots size={20} />
-						<p>{post.comment.length} Comments</p>
+						<p>{post?.comment.length} Comments</p>
 					</div>
 
 					<div className="post-icons">

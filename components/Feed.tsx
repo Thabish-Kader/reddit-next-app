@@ -21,7 +21,7 @@ export const Feed = ({ subreddit }: Props) => {
 	const posts: Post[] = !subreddit
 		? data?.getPostListByOrder
 		: data?.getPostBySubredditTopic;
-	console.log(data);
+
 	return (
 		<div className="space-y-4">
 			{posts?.map((post) => (

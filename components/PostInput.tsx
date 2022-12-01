@@ -36,7 +36,7 @@ export const PostInput = ({ subreddit }: Props) => {
 	// Apollo
 	const [addSubreddit] = useMutation(CREAT_SUBREDDIT);
 	const [newPost] = useMutation(ADD_POST, {
-		refetchQueries: [{ query: ALL_POSTS_BY_ORDER }, "getPostListByOrder"],
+		refetchQueries: [ALL_POSTS_BY_ORDER, "getPostListByOrder"],
 	});
 
 	const onSubmit: SubmitHandler<Inputs> = async (formData) => {
