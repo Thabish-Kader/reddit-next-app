@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { Feed } from "../../components/Feed";
 import { PostInput } from "../../components/PostInput";
@@ -6,6 +7,9 @@ import { UserIcon } from "../../components/UserIcon";
 type Props = {};
 
 export default function (props: Props) {
+	const { query } = useRouter();
+	const subreddit = query.subreddit;
+
 	return (
 		<div className=" ">
 			{/* banner */}
@@ -19,7 +23,7 @@ export default function (props: Props) {
 						{/* subredddit info */}
 						<div className="flex flex-col justify-center p-2">
 							<p className="text-2xl font-bold ">
-								Welcome to the r/test subreddit
+								Welcome to the r/{subreddit} subreddit
 							</p>
 							<p className="text-gray-500 text-sm">r/subreddit</p>
 						</div>

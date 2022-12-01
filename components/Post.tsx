@@ -5,6 +5,9 @@ import { BsChatDots, BsThreeDots, BsSave } from "react-icons/bs";
 import { AiOutlineGift, AiOutlineShareAlt } from "react-icons/ai";
 import { UserIcon } from "./UserIcon";
 import Image from "next/image";
+
+import Link from "next/link";
+
 type Props = {
 	post: Post;
 };
@@ -24,9 +27,11 @@ export const Post = ({ post }: Props) => {
 				<div className="flex items-center space-x-1 m-2">
 					<UserIcon name={post?.username} />
 					<p className="font-bold tracking-tight text-sm">
-						<span className="hover:text-blue-500 cursor-pointer">
-							r/{post?.subreddit[0].topic}
-						</span>
+						<Link href={`/subreddit/${post?.subreddit[0].topic}`}>
+							<span className="hover:text-blue-500 cursor-pointer">
+								r/{post?.subreddit[0].topic}
+							</span>
+						</Link>
 					</p>
 					<p className="text-xs text-gray-500">
 						Posted by {post?.username}
@@ -38,7 +43,7 @@ export const Post = ({ post }: Props) => {
 				</div>
 				{/* post info */}
 				<div className="flex flex-col m-2">
-					<p>{post?.title}</p>
+					<p className="text-xl font-bold">{post?.title}</p>
 					<p>{post.body}</p>
 				</div>
 

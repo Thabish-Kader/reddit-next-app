@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
-import { ALL_POSTS, ALL_POSTS_BY_ORDER } from "../graphQl/queries";
+import { ALL_POSTS_BY_ORDER } from "../graphQl/queries";
 import { Post } from "./Post";
 
 type Props = {};
