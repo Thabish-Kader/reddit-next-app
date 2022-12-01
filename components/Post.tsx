@@ -24,13 +24,12 @@ export const Post = ({ post }: Props) => {
 				<div className="flex items-center space-x-1 m-2">
 					<UserIcon name={post?.username} />
 					<p className="font-bold tracking-tight text-sm">
-						r/{post?.subreddit[0].topic}
+						<span className="hover:text-blue-500 cursor-pointer">
+							r/{post?.subreddit[0].topic}
+						</span>
 					</p>
 					<p className="text-xs text-gray-500">
-						Posted by{" "}
-						<span className="hover:text-blue-500 cursor-pointer">
-							{post?.username}
-						</span>
+						Posted by {post?.username}
 					</p>
 					<TimeAgo
 						className="text-xs text-gray-500"
