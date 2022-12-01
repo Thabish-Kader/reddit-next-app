@@ -8,7 +8,7 @@ type Props = {
 
 export const UserIcon = ({ name }: Props) => {
 	return (
-		<div className="relative h-14 w-14 lg:h-16 lg:w-16 ">
+		<div className="relative h-14 w-14 lg:h-20 lg:w-20 ">
 			<Image
 				src={`https://avatars.dicebear.com/api/open-peeps/${name}.svg`}
 				alt="avatar"

@@ -16,6 +16,7 @@ import {
 import { BsBell, BsChatDots, BsGlobe, BsSearch } from "react-icons/bs";
 import { HiOutlineSparkles, HiSpeakerphone } from "react-icons/hi";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 type Props = {};
 
 export const Header = (props: Props) => {
@@ -25,11 +26,13 @@ export const Header = (props: Props) => {
 		<section className="flex items-center w-full bg-white p-1">
 			{/* Left side */}
 			<div className="flex items-center p-2 px-3 lg:min-w-[300px]">
-				<Image
-					src={reddit}
-					alt="reddit logo"
-					className="h-10 w-20 object-cover cursor-pointer mr-5"
-				/>
+				<Link href="/">
+					<Image
+						src={reddit}
+						alt="reddit logo"
+						className="h-10 w-20 object-cover cursor-pointer mr-5"
+					/>
+				</Link>
 				<AiOutlineHome size={30} />
 				<p className="hidden lg:flex lg:flex-grow mx-1">Home</p>
 				<AiOutlineDown size={30} />
