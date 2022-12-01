@@ -33,7 +33,7 @@ export default function (props: Props) {
 			{/* post and subreddit component */}
 			<div className="mx-auto max-w-5xl mt-3">
 				<PostInput subreddit={subreddit as string} />
-				<Feed />
+				<Feed subreddit={subreddit as string} />
 			</div>
 		</div>
 	);

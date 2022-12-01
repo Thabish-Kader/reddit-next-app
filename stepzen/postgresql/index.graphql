@@ -95,6 +95,19 @@ type Query {
 			table: "Post"
 			configuration: "postgresql_config"
 		)
+	# query for [subreddit].tsx
+	getPostBySubredditTopic(topic: String!): [Post]
+		@dbquery(
+			type: "postgresql"
+			query: """
+			SELECT * , "Post".id as id from "Post"
+			join subreddit on subreddit.id = "Post".subreddit_id
+			where subreddit.topic = $1
+			order by "Post".created_at desc
+			"""
+			configuration: "postgresql_config"
+		)
+
 	getPostBySubreddit_idAndBody(subreddit_id: ID!, body: String!): [Post]
 		@dbquery(
 			type: "postgresql"

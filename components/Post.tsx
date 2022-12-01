@@ -38,7 +38,7 @@ export const Post = ({ post }: Props) => {
 					</p>
 					<TimeAgo
 						className="text-xs text-gray-500"
-						date={post?.created_at}
+						date={post.created_at}
 					/>
 				</div>
 				{/* post info */}
@@ -48,14 +48,16 @@ export const Post = ({ post }: Props) => {
 				</div>
 
 				{/* image */}
-				<div className="relative min-w-[900px] h-[500px]">
-					<Image
-						src={post?.image}
-						alt=""
-						fill
-						className="object-contain"
-					/>
-				</div>
+				{post?.image && (
+					<div className="relative min-w-[900px] h-[500px]">
+						<Image
+							src={post?.image}
+							alt=""
+							fill
+							className="object-contain"
+						/>
+					</div>
+				)}
 				{/* footer */}
 				<div className="flex space-x-4 items-center m-10">
 					<div className="post-icons">
