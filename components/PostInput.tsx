@@ -18,7 +18,11 @@ type Inputs = {
 	image: string;
 };
 
-export const PostInput = () => {
+type Props = {
+	subreddit?: string;
+};
+
+export const PostInput = ({ subreddit }: Props) => {
 	const [imageInput, setImageInput] = useState<boolean>(false);
 	const {
 		register,
@@ -44,7 +48,7 @@ export const PostInput = () => {
 			} = await client.query({
 				query: GET_SUBREDDIT,
 				variables: {
-					topic: formData.subReddit,
+					topic: subreddit || formData.subReddit,
 				},
 			});
 			// check wether subreddit exists
@@ -111,14 +115,6 @@ export const PostInput = () => {
 			>
 				{/* User Icon and Post title Input */}
 				<div className="flex items-center">
-					{/* <div className="relative h-14 w-14 lg:h-16 lg:w-16 ">
-						<Image
-							src={`https://avatars.dicebear.com/api/open-peeps/${session?.user?.name}.svg`}
-							alt="avatar"
-							fill
-							className="object-cover rounded-full"
-						/>
-					</div> */}
 					<UserIcon name={session?.user?.name as string} />
 
 					<input
@@ -157,15 +153,19 @@ export const PostInput = () => {
 						</div>
 
 						{/* Post Subrredit input */}
-						<div className="flex items-center">
-							<p className="min-w-[90px] px-3">SubReddit</p>
-							<input
-								{...register("subReddit", { required: true })}
-								type="text"
-								placeholder="Enter Subreddit"
-								className="bg-blue-50 flex-grow p-2 rounded-md outline-none mr-10"
-							/>
-						</div>
+						{!subreddit && ( // dont render subreddit input if in subreddit page
+							<div className="flex items-center">
+								<p className="min-w-[90px] px-3">SubReddit</p>
+								<input
+									{...register("subReddit", {
+										required: true,
+									})}
+									type="text"
+									placeholder="Enter Subreddit"
+									className="bg-blue-50 flex-grow p-2 rounded-md outline-none mr-10"
+								/>
+							</div>
+						)}
 
 						{imageInput && (
 							<>
