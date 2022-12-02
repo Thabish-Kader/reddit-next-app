@@ -7,6 +7,8 @@ import { GET_POST_BY_ID } from "../../graphQl/queries";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ADD_COMMENT } from "../../graphQl/mutations";
 import { toast } from "react-hot-toast";
+import { UserIcon } from "../../components/UserIcon";
+import ReactTimeago from "react-timeago";
 
 type FormInput = {
 	comment: string;
@@ -27,6 +29,8 @@ const PostPage = () => {
 	const [addComment] = useMutation(ADD_COMMENT, {
 		refetchQueries: [GET_POST_BY_ID, "getPostById"],
 	});
+
+	// fetching comment
 
 	const {
 		register,
@@ -85,6 +89,27 @@ const PostPage = () => {
 					{session ? "Comment" : "Sign in to Comment"}
 				</button>
 			</form>
+
+			{post.comment.map((singleComment) => (
+				<div
+					className="bg-white relative flex items-center pl-20 pb-5"
+					key={singleComment.id}
+				>
+					<hr className="h-5 absolute border-black top-14 left-[110px] border" />
+					<UserIcon name={singleComment.username} />
+					<div className="flex flex-col justify-center">
+						<div className="flex items-center space-x-2">
+							<p className="font-semibold">
+								{singleComment.username}
+							</p>
+							<p className="text-gray-500 text-sm">
+								<ReactTimeago date={singleComment.created_at} />
+							</p>
+						</div>
+						<p>{singleComment.text}</p>
+					</div>
+				</div>
+			))}
 		</div>
 	);
 };

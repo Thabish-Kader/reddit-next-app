@@ -1,4 +1,16 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+
+export const GET_COMMENT_BY_POST = gql`
+	query getCommentByPost($post_id: ID!) {
+		getCommentListById(post_id: $post_id) {
+			created_at
+			id
+			post_id
+			text
+			username
+		}
+	}
+`;
 
 export const GET_SUBREDDIT = gql`
 	query getSubredditQuery($topic: String!) {
