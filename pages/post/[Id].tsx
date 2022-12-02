@@ -90,7 +90,7 @@ const PostPage = () => {
 				</button>
 			</form>
 
-			{post.comment.map((singleComment) => (
+			{post?.comment?.map((singleComment) => (
 				<div
 					className="bg-white relative flex items-center pl-20 pb-5"
 					key={singleComment.id}
