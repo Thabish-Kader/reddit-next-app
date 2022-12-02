@@ -76,10 +76,13 @@ const PostPage = () => {
 				/>
 
 				<button
+					disabled={!session}
 					type="submit"
-					className="bg-orange-500 font-semibold p-2 rounded-lg"
+					className={`bg-orange-500 font-semibold p-2 rounded-lg ${
+						!session && "bg-orange-200"
+					}`}
 				>
-					Comment
+					{session ? "Comment" : "Sign in to Comment"}
 				</button>
 			</form>
 		</div>
