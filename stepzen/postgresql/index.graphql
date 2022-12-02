@@ -203,6 +203,7 @@ type Query {
 			type: "postgresql"
 			query: """
 			SELECT * FROM "vote" where "post_id" = $1
+			order by "created_at" desc
 			"""
 			configuration: "postgresql_config"
 		)
@@ -331,6 +332,14 @@ type Mutation {
 		created_at: DateTime
 		upvote: Boolean
 	): Vote
+		@dbquery(
+			type: "postgresql"
+			schema: "public"
+			table: "vote"
+			dml: INSERT
+			configuration: "postgresql_config"
+		)
+	insertUpVote(username: String!, post_id: ID!, upvote: Boolean!): Vote
 		@dbquery(
 			type: "postgresql"
 			schema: "public"
