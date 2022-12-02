@@ -23,18 +23,65 @@ export const Post = ({ post }: Props) => {
 	const router = useRouter();
 	const { data: session } = useSession();
 	const [voted, setVoted] = useState<boolean>();
-	const totalUpvote = 0;
+
 	// vote query and mutation
 	const { data } = useQuery(GET_VOTE_BY_ID, {
 		variables: {
 			post_id: post?.id,
 		},
 	});
-	const votes: Vote[] = data?.getVoteListById;
 
-	const [addVote] = useMutation(ADD_UPVOTE);
+	const [addVote] = useMutation(ADD_UPVOTE, {
+		refetchQueries: [GET_VOTE_BY_ID, "getVoteListById"],
+	});
 
-	if (!post)
+	const upVote = async (isUpVote: boolean) => {
+		if (!session) {
+			toast("You need to sign in to vote");
+			return;
+		}
+
+		if (voted && isUpVote) return;
+		if (voted === false && !isUpVote) return;
+
+		await addVote({
+			variables: {
+				post_id: post.id,
+				username: session.user?.name,
+				upvote: isUpVote,
+			},
+		});
+	};
+
+	//update vote whenever the data changes
+	useEffect(() => {
+		const votes: Vote[] = data?.getVoteListById;
+
+		const vote = votes?.find(
+			(vote) => vote.username == session?.user?.name
+		)?.upvote;
+
+		setVoted(vote);
+	}, [data]);
+
+	const displayVotes = (data: any) => {
+		const votes: Vote[] = data?.getVoteListById;
+
+		const displayNumber = votes?.reduce(
+			(total, vote) => (vote?.upvote ? (total += 1) : (total -= 1)),
+			0
+		);
+
+		if (votes?.length === 0) return 0;
+
+		if (displayNumber === 0) {
+			return votes[0]?.upvote ? 1 : -1;
+		}
+
+		return displayNumber;
+	};
+
+	if (!post) {
 		return (
 			<div className="flex flex-col items-center justify-center h-screen">
 				{" "}
@@ -42,46 +89,8 @@ export const Post = ({ post }: Props) => {
 				<p>One moment.....</p>
 			</div>
 		);
-
-	// upvote logic
-	const vote = async (isUpVote: boolean) => {
-		if (!session) {
-			toast("You need to sign in to vote");
-		}
-
-		// check wether the user has voted
-		if (voted && isUpVote) return;
-		if (voted === false && !isUpVote) return;
-
-		await addVote({
-			variables: {
-				username: session?.user?.name,
-				post_id: post?.id,
-				upvote: isUpVote,
-			},
-		});
-		console.log(`${session?.user?.name} sucessfuly voted`);
-
-		// add / subtract the votes and give the sum (use reducer)
-		const totalUpvote = votes.reduce(
-			(total, votes) => (votes.upvote ? (total += 1) : (total -= 1)),
-			0
-		);
-		console.log(`Total upvote is ${totalUpvote}`);
-	};
-
-	useEffect(() => {
-		const vote = votes?.find(
-			(vote) => vote?.username == session?.user?.name
-		)?.upvote;
-
-		setVoted(vote);
-	}, [data]);
-
-	const displayVotes = (data : any) {
-		const displayNumber = votes?.reduce((total, vote) => vote.upvote ? (total +=1): (total -=1), 0)
 	}
-
+	console.log(voted);
 	return (
 		<div
 			onClick={() => router.push(`/post/${post.id}`)}
@@ -89,11 +98,16 @@ export const Post = ({ post }: Props) => {
 		>
 			{/* voteing side */}
 			<div className="flex flex-col items-center p-5 space-y-2  bg-gray-100">
-				<FiArrowUp onClick={() => vote(true)} className="vote-icons" />
-				<p className="font-bold">{votes.length}</p>
+				<FiArrowUp
+					onClick={() => upVote(true)}
+					className={`vote-icons ${voted && "text-green-500"}`}
+				/>
+				<p className="font-bold">{displayVotes(data)}</p>
 				<FiArrowDown
-					onClick={() => vote(false)}
-					className="vote-icons"
+					onClick={() => upVote(false)}
+					className={`vote-icons ${
+						voted === false && "text-red-500"
+					}`}
 				/>
 			</div>
 

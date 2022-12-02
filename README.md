@@ -15,6 +15,9 @@
     order by "Post".created_at desc '''
     if you noticed i was createing a relation in the wrong column it was "Post".subreddit_id = "subreddit".id not "Post".id = "subreddit".id
 
+-   When implementing the votes feature i was getting an error with message "Rendered more hooks than during the previous render (React)" this was solved by the help of this [blog](https://bobbyhadz.com/blog/react-rendered-more-hooks-than-during-previous-render)
+    I had to move the render method when the page was loading to the bottom
+
 ### Resources
 
 -   [StepZen Query](https://stepzen.com/docs/quick-start/with-database-postgresql)
