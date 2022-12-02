@@ -1,4 +1,16 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+
+export const GET_COMMENT_BY_POST = gql`
+	query getCommentByPost($post_id: ID!) {
+		getCommentListById(post_id: $post_id) {
+			created_at
+			id
+			post_id
+			text
+			username
+		}
+	}
+`;
 
 export const GET_SUBREDDIT = gql`
 	query getSubredditQuery($topic: String!) {
@@ -46,6 +58,72 @@ export const ALL_POSTS = gql`
 export const ALL_POSTS_BY_ORDER = gql`
 	query getPostQuery {
 		getPostListByOrder {
+			body
+			created_at
+			id
+			image
+			subreddit_id
+			title
+			username
+			subreddit {
+				created_at
+				id
+				topic
+			}
+			comment {
+				created_at
+				id
+				post_id
+				text
+				username
+			}
+			vote {
+				created_at
+				id
+				upvote
+				post_id
+				username
+			}
+		}
+	}
+`;
+
+export const ALL_POSTS_BY_SUBREDDIT_TOPIC = gql`
+	query getPostQuery($topic: String!) {
+		getPostBySubredditTopic(topic: $topic) {
+			body
+			created_at
+			id
+			image
+			subreddit_id
+			title
+			username
+			subreddit {
+				created_at
+				id
+				topic
+			}
+			comment {
+				created_at
+				id
+				post_id
+				text
+				username
+			}
+			vote {
+				created_at
+				id
+				upvote
+				post_id
+				username
+			}
+		}
+	}
+`;
+
+export const GET_POST_BY_ID = gql`
+	query getPostQuery($id: ID!) {
+		getPostById(id: $id) {
 			body
 			created_at
 			id
