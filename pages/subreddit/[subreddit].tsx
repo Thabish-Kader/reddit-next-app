@@ -6,7 +6,7 @@ import { UserIcon } from "../../components/UserIcon";
 
 type Props = {};
 
-export default function (props: Props) {
+export default function Subreddits(props: Props) {
 	const { query } = useRouter();
 	const subreddit = query.subreddit;
 
