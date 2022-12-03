@@ -138,14 +138,9 @@ export const Post = ({ post }: Props) => {
 
 				{/* image */}
 				{post?.image && (
-					<div className="relative min-w-[900px] h-[500px]">
-						<Image
-							src={post?.image}
-							alt=""
-							fill
-							className="object-contain"
-						/>
-					</div>
+					<picture>
+						<img src={post?.image} alt="" className="w-full" />
+					</picture>
 				)}
 				{/* footer */}
 				<div className="flex space-x-4 items-center m-10">

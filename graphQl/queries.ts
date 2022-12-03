@@ -10,6 +10,16 @@ export const GET_SUBREDDIT = gql`
 	}
 `;
 
+export const GET_LATEST_SUBREDDIT = gql`
+	query getLatestSubreddit {
+		getLatestSubreddit {
+			created_at
+			id
+			topic
+		}
+	}
+`;
+
 export const ALL_POSTS = gql`
 	query getPostQuery {
 		getPostList {

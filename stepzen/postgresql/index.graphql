@@ -163,6 +163,16 @@ type Query {
 			configuration: "postgresql_config"
 		)
 
+	getLatestSubreddit: [Subreddit]
+		@dbquery(
+			type: "postgresql"
+			query: """
+			select * from subreddit
+			limit 10
+			"""
+			configuration: "postgresql_config"
+		)
+
 	getSubredditListById(post_id: ID!): [Subreddit]
 		@dbquery(
 			type: "postgresql"

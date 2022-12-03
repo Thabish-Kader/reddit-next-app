@@ -33,13 +33,17 @@ export const Header = (props: Props) => {
 						className="h-10 w-20 object-cover cursor-pointer mr-5"
 					/>
 				</Link>
-				<AiOutlineHome size={30} />
-				<p className="hidden lg:flex lg:flex-grow mx-1">Home</p>
-				<AiOutlineDown size={30} />
+				<Link className="flex space-x-2" href="/">
+					<div className="flex items-center">
+						<AiOutlineHome size={30} />
+						<p className="hidden lg:flex lg:flex-grow mx-1">Home</p>
+					</div>
+					<AiOutlineDown size={30} />
+				</Link>
 			</div>
 
 			{/* Search componenet */}
-			<div className="flex flex-grow flex-shrink rounded-sm items-center bg-gray-300 space-x-2 p-2">
+			<div className="flex flex-grow flex-shrink rounded-lg items-center bg-gray-300 space-x-2 p-2">
 				<BsSearch size={30} />
 				<input
 					type="text"
