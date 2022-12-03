@@ -114,14 +114,14 @@ export const PostInput = ({ subreddit }: Props) => {
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				{/* User Icon and Post title Input */}
-				<div className="flex items-center">
+				<div className="flex items-center ">
 					<UserIcon name={session?.user?.name as string} />
 
 					<input
 						{...register("postTitle", { required: true })}
 						disabled={!session}
 						type="text"
-						className="mx-3 flex-1 p-2 outline-none rounded-md bg-gray-100"
+						className="mx-3  flex-1 p-2 outline-none rounded-md bg-gray-100"
 						placeholder="Enter Post Title"
 					/>
 

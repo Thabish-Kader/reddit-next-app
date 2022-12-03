@@ -45,3 +45,17 @@ export const ADD_COMMENT = gql`
 		}
 	}
 `;
+
+export const ADD_UPVOTE = gql`
+	mutation insertUpvote(
+		$username: String!
+		$post_id: ID!
+		$upvote: Boolean!
+	) {
+		insertUpVote(username: $username, post_id: $post_id, upvote: $upvote) {
+			post_id
+			upvote
+			username
+		}
+	}
+`;

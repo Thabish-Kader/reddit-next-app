@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+
 import React from "react";
 import {
 	ALL_POSTS_BY_ORDER,
@@ -23,7 +24,7 @@ export const Feed = ({ subreddit }: Props) => {
 		: data?.getPostBySubredditTopic;
 
 	return (
-		<div className="space-y-4">
+		<div className="space-y-4 flex-1">
 			{posts?.map((post) => (
 				<Post key={post.id} post={post} />
 			))}

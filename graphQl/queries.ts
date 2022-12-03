@@ -10,6 +10,16 @@ export const GET_SUBREDDIT = gql`
 	}
 `;
 
+export const GET_LATEST_SUBREDDIT = gql`
+	query getLatestSubreddit {
+		getLatestSubreddit {
+			created_at
+			id
+			topic
+		}
+	}
+`;
+
 export const ALL_POSTS = gql`
 	query getPostQuery {
 		getPostList {
@@ -138,6 +148,17 @@ export const GET_POST_BY_ID = gql`
 				post_id
 				username
 			}
+		}
+	}
+`;
+
+export const GET_VOTE_BY_ID = gql`
+	query getVoteQuery($post_id: ID!) {
+		getVoteListById(post_id: $post_id) {
+			id
+			post_id
+			username
+			upvote
 		}
 	}
 `;

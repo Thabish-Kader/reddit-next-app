@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 import TimeAgo from "react-timeago";
 import { BsChatDots, BsThreeDots, BsSave } from "react-icons/bs";
@@ -9,6 +9,11 @@ import Image from "next/image";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useMutation, useQuery } from "@apollo/client";
+import { ADD_UPVOTE } from "../graphQl/mutations";
+import { GET_VOTE_BY_ID } from "../graphQl/queries";
+import { useSession } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 type Props = {
 	post: Post;
@@ -16,15 +21,76 @@ type Props = {
 
 export const Post = ({ post }: Props) => {
 	const router = useRouter();
+	const { data: session } = useSession();
+	const [voted, setVoted] = useState<boolean>();
 
-	if (!post)
+	// vote query and mutation
+	const { data } = useQuery(GET_VOTE_BY_ID, {
+		variables: {
+			post_id: post?.id,
+		},
+	});
+
+	const [addVote] = useMutation(ADD_UPVOTE, {
+		refetchQueries: [GET_VOTE_BY_ID, "getVoteListById"],
+	});
+
+	const upVote = async (isUpVote: boolean) => {
+		if (!session) {
+			toast("You need to sign in to vote");
+			return;
+		}
+
+		if (voted && isUpVote) return;
+		if (voted === false && !isUpVote) return;
+
+		await addVote({
+			variables: {
+				post_id: post.id,
+				username: session.user?.name,
+				upvote: isUpVote,
+			},
+		});
+	};
+
+	//update vote whenever the data changes
+	useEffect(() => {
+		const votes: Vote[] = data?.getVoteListById;
+
+		const vote = votes?.find(
+			(vote) => vote.username == session?.user?.name
+		)?.upvote;
+
+		setVoted(vote);
+	}, [data]);
+
+	const displayVotes = (data: any) => {
+		const votes: Vote[] = data?.getVoteListById;
+
+		const displayNumber = votes?.reduce(
+			(total, vote) => (vote?.upvote ? (total += 1) : (total -= 1)),
+			0
+		);
+
+		if (votes?.length === 0) return 0;
+
+		if (displayNumber === 0) {
+			return votes[0]?.upvote ? 1 : -1;
+		}
+
+		return displayNumber;
+	};
+
+	if (!post) {
 		return (
 			<div className="flex flex-col items-center justify-center h-screen">
+				{" "}
 				<Pinwheel size={35} lineWeight={3.5} speed={1} color="black" />
 				<p>One moment.....</p>
 			</div>
 		);
-
+	}
+	console.log(voted);
 	return (
 		<div
 			onClick={() => router.push(`/post/${post.id}`)}
@@ -32,9 +98,17 @@ export const Post = ({ post }: Props) => {
 		>
 			{/* voteing side */}
 			<div className="flex flex-col items-center p-5 space-y-2  bg-gray-100">
-				<FiArrowUp className="vote-icons" />
-				<p className="font-bold">0</p>
-				<FiArrowDown className="vote-icons" />
+				<FiArrowUp
+					onClick={() => upVote(true)}
+					className={`vote-icons ${voted && "text-green-500"}`}
+				/>
+				<p className="font-bold">{displayVotes(data)}</p>
+				<FiArrowDown
+					onClick={() => upVote(false)}
+					className={`vote-icons ${
+						voted === false && "text-red-500"
+					}`}
+				/>
 			</div>
 
 			<div className="flex flex-col p-2 space-y-2">
@@ -64,14 +138,9 @@ export const Post = ({ post }: Props) => {
 
 				{/* image */}
 				{post?.image && (
-					<div className="relative min-w-[900px] h-[500px]">
-						<Image
-							src={post?.image}
-							alt=""
-							fill
-							className="object-contain"
-						/>
-					</div>
+					<picture>
+						<img src={post?.image} alt="" className="w-full" />
+					</picture>
 				)}
 				{/* footer */}
 				<div className="flex space-x-4 items-center m-10">
