@@ -12,7 +12,6 @@ type Props = {
 };
 
 export const Feed = ({ subreddit }: Props) => {
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const { data } = !subreddit
 		? useQuery(ALL_POSTS_BY_ORDER)
 		: useQuery(ALL_POSTS_BY_SUBREDDIT_TOPIC, {
