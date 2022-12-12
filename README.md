@@ -2,6 +2,15 @@
 
 ## Next Js, Supabase, StepZen, Apolloclient,  GraphQl, Typescript, tailwind
 
+<img align="left" alt="NextJS" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" />
+<img align="left" alt="TypeScript" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" />
+<img align="left" alt="TypeScript" width="30px" style="padding-right:10px;" src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg" />
+
+<img align="left" alt="Tailwind" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" />
+<img align="left" alt="Tailwind" width="30px" style="padding-right:10px;" src="https://www.vectorlogo.zone/logos/graphql/graphql-icon.svg" />
+<br/>
+<br/>
+
 This reddit demo application utilizes the supabase database for storing data, graphql for query and mutateting data with the help of apollo client. The authentication is achieved useing next auth. Users are able to post on existing subreddit or create new subreddits if they desire. Additionally they can comment and vote on each posts.
 
 Check out the [Live Demo](https://reddit-next-app.vercel.app/)
