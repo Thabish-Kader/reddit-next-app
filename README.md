@@ -11,7 +11,8 @@
 <br/>
 <br/>
 
-This reddit demo application utilizes the supabase database for storing data, graphql for query and mutateting data with the help of apollo client. The authentication is achieved useing next auth. Users are able to post on existing subreddit or create new subreddits if they desire. Additionally they can comment and vote on each posts.
+A "Reddit clone" built using Next.js, Firebase, NextAuth, and GraphQL is a highly scalable, real-time, and dynamic social media website that closely mimics the features and user experience of the original Reddit website. Next.js handles the server-side rendering of the website, making it highly performant and SEO-friendly. Firebase is used as the backend for the website, providing a real-time database, user authentication, and hosting services. NextAuth is used to handle user authentication and authorization, allowing users to log in and register securely. GraphQL is used as the API for the website, providing a flexible and efficient way to retrieve and manipulate data. This combination of technologies allows for a smooth and responsive user experience, allowing users to easily create and interact with posts, and vote and comment on them.
+
 
 Check out the [Live Demo](https://reddit-next-app.vercel.app/)
 
